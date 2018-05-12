@@ -5,14 +5,14 @@ from azure.common.credentials import ServicePrincipalCredentials
 
 from config import Config
 
-# Goggle DNS Server (needed to determine current ip address)
-resolver.nameservers = ['8.8.8.8']
-
-ips = resolver.query(Config['host'], 'A')
-ips2 = resolver.query('o-o.myaddr.l.google.com', 'TXT')
+r= resolver.Resolver(configure=False)
+# OpenDNS Servers (needed to determine current ip address)
+r.nameservers = ['208.67.222.222', '208.67.220.220']
+ips = r.query(Config['host'])
+ips2 = r.query('myip.opendns.com')
 
 record = ips[0].address
-current = ips2[0].strings[0].decode('UTF-8')
+current = ips2[0].address
 
 if record != current:
     credentials = ServicePrincipalCredentials(

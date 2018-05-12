@@ -4,7 +4,7 @@ When deployed and scheduled to run periodically this script will update DNS Reco
 
 ## How it works
 
-The script will use a special TXT query to Google's DNS that will return current IP address of the inquiring host [[More about that](https://code.blogs.iiidefix.net/posts/get-public-ip-using-dns/)]. Provided information will be compared with the DNS response for the host. If the two values are not equal, the script will invoke call to azure to update DNS record with the current IP.
+The script will query to OpenDNS to receive the current IP address of the inquiring host [[More about that](https://code.blogs.iiidefix.net/posts/get-public-ip-using-dns/)]. Provided information will be compared with the DNS response for the host. If the two values are not equal, the script will invoke call to azure to update DNS record with the current IP.
 
 ## Prerequisites
 
