@@ -42,4 +42,4 @@ if record != current:
     )
 
     ts = strftime('%Y-%m-%d %H:%M:%S', gmtime())
-    print(ts + ' Record updated to: ' + current)
+    print(f'{ts} Record {Config["recordSetName"]}.{Config["zoneName"]} updated from {record} to {current}')
