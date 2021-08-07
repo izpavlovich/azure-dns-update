@@ -1,2 +1,4 @@
 dnspython
+azure-identity
 azure-mgmt-dns
+msrestazure

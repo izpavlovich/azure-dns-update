@@ -1,24 +1,24 @@
 from time import gmtime, strftime
 from dns import resolver
 from azure.mgmt.dns import DnsManagementClient
-from azure.common.credentials import ServicePrincipalCredentials
+from azure.identity import ClientSecretCredential
 
 from config import Config
 
 r= resolver.Resolver(configure=False)
 # OpenDNS Servers (needed to determine current ip address)
 r.nameservers = ['208.67.222.222', '208.67.220.220']
-ips = r.query(Config['host'])
-ips2 = r.query('myip.opendns.com')
+ips = r.resolve(Config['host'], lifetime=30)
+ips2 = r.resolve('myip.opendns.com', lifetime=30)
 
 record = ips[0].address
 current = ips2[0].address
 
 if record != current:
-    credentials = ServicePrincipalCredentials(
+    credentials = ClientSecretCredential(
         client_id=Config['clientId'],
-        secret=Config['secret'],
-        tenant=Config['tenant']
+        client_secret=Config['secret'],
+        tenant_id=Config['tenant']
     )
 
     dns_client = DnsManagementClient(
